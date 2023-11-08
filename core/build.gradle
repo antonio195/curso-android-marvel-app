@@ -22,4 +22,13 @@ dependencies {
     api(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
     api("com.squareup.okhttp3:okhttp")
     api("com.squareup.okhttp3:logging-interceptor")
+
+    // Paging 3 Common
+    implementation("androidx.paging:paging-common:$paging_version")
+
+    // Javax Inject
+    implementation("javax.inject:javax.inject:1")
+
+    // Coroutines Core
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 }
