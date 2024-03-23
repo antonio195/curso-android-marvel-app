@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+//    id 'kotlin-kapt'
+//    id 'dagger.hilt.android.plugin'
+//    id "androidx.navigation.safeargs"
+//    id 'kotlin-parcelize'
+//    id "../config/detekt/detekt.gradle"
 }
 
 apply plugin: 'kotlin-kapt'
@@ -26,7 +31,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "PUBLIC_KEY", apikeyProperties['PUBLIC_KEY'])
         buildConfigField("String", "PRIVATE_KEY", apikeyProperties['PRIVATE_KEY'])
-        buildConfigField("String", "BASE_URL", '"https://gateway.marvel.com:443/v1/public/"')
+        buildConfigField("String", "BASE_URL", apikeyProperties['BASE_URL'])
     }
 
     buildTypes {

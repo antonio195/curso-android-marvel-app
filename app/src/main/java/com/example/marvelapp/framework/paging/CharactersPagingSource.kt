@@ -17,9 +17,9 @@ class CharactersPagingSource(
         return try {
             val offset = params.key ?: 0
             val queries = hashMapOf("offset" to offset.toString())
-            if (queries.isNotEmpty()) {
-                queries["nameStartsWith"] = query
-            }
+//            if (queries.isNotEmpty()) {
+//                queries["nameStartsWith"] = query
+//            }
 
             val response = remoteDataSource.fetchCharacters(queries)
             val responseOffSet = response.data.offset

@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.antoniocostadossantos.core.domain.model.Character
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
 
     private var _binding: FragmentCharactersBinding? = null
     private val binding: FragmentCharactersBinding get() = _binding!!
-
+    private val viewModel: CharactersViewModel by viewModels()
     private val charactersAdapter = CharactersAdapter()
 
     override fun onCreateView(
@@ -26,59 +29,11 @@ class CharactersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initCharactersAdapter()
 
-        charactersAdapter.submitList(
-            listOf(
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-                Character(
-                    "Spider Man",
-                    "https://tm.ibxk.com.br/2023/10/15/15144301590000.jpg?ims=352x208"
-                ),
-
-                )
-        )
+        lifecycleScope.launch {
+            viewModel.charactersPagingData("").collect{ pagingData ->
+                charactersAdapter.submitData(pagingData)
+            }
+        }
 
     }
 
